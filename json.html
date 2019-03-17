@@ -1,8 +1,9 @@
-
-<html>
- <script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh_cn" lang="zh_cn">
 <head>
-<title>HTML JSON¸ñÊ½»¯,¿ÉÒÔÈ¥³ı»Ø³µ·û</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312"/>
+     <script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<head>
+<title>HTML JSONæ ¼å¼åŒ–,å¯ä»¥å»é™¤å›è½¦ç¬¦</title>
 </head>
 <style type="text/css">
     body {
@@ -25,13 +26,13 @@
  <script type="text/javascript">
    function json_format()
    {
-    ¡¡ var text = $('#input_json').val(); //»ñÈ¡json¸ñÊ½ÄÚÈİ
+    ã€€ var text = $('#input_json').val(); //è·å–jsonæ ¼å¼å†…å®¹
        try {
             $("#error_message").html("");
             text = text.replace(/\r/g,'');
             text = text.replace(/\n/g,'');
             var jsonObj = JSON.parse(text);
-            var result = JSON.stringify(jsonObj, null, 2);//½«×Ö·û´®×ª»»³Éjson¶ÔÏó
+            var result = JSON.stringify(jsonObj, null, 2);//å°†å­—ç¬¦ä¸²è½¬æ¢æˆjsonå¯¹è±¡
             $('#input_json').val(result);
        }catch(e) {
             $("#error_message").html(e.message);
@@ -46,7 +47,7 @@
     </div>
     <div>
     <div style="float:left">
-        <input id="btn_format" type="button" onclick="json_format()" value="¸ñÊ½»°"></input>
+        <input id="btn_format" type="button" onclick="json_format()" value="æ ¼å¼è¯"></input>
         <span id="error_message"></span>
     </div>
 </body>
