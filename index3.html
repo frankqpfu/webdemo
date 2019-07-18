@@ -36,6 +36,18 @@
 </style>
 
 <script type="text/javascript">
+	function setSWFIsReady() {
+		console.log("setSWFIsReady");
+	}
+	
+	function swfEventCallback(code) {
+		console.log("NetStreamStatusCode:" + code);
+	}
+	
+	function hwStatusCallback(code) {
+		console.log("hwstatus:" + code);
+	}
+	
 	function getid(id){
 		return document.getElementById(id);
 	}
@@ -91,7 +103,7 @@
 			</div>
 			<div style="float:left;margin-top:8px">
 				<object>
-					<embed id="rtmp_client" src="RtmpStreamer2.swf" bgcolor="#999999" quality="high"
+					<embed id="rtmp_client" src="RtmpStreamer.swf" bgcolor="#999999" quality="high"
 						   width="640" height="480" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></embed>
 				</object>
 			</div>
