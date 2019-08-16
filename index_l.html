@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+	<title>Web推流示范</title>
+</head>
+
+<style type="text/css">
+	body {
+		font-size:14px;
+	}
+	span {
+		display:inline-block;
+		margin: 10px 10px 10px 0;
+	}
+	label {
+		display:inline-block;
+		width:100px;
+		margin: 0px 0px 0px 0px;
+	}
+	input {
+		height:18px;
+		padding:5px 5px 5px 5px;
+	}
+	input[type="button"] {
+		height:32px;
+		padding:0px 20px 0px 20px;
+		margin:5px;
+	}
+	.long {
+		width:700px;
+	}
+	#top {
+		width: 1200px;
+		margin: auto;
+	}
+</style>
+
+<script type="text/javascript">
+	
+	function swfEventCallback(code) {
+		console.log("NetStreamStatusCode:" + code);
+	}
+	
+	function hwStatusCallback(code) {
+		console.log("hwstatus:" + code);
+	}
+	
+	function getid(id){
+		return document.getElementById(id);
+	}
+	
+	function fn_push_start() {
+		var info = {};
+		info.push_url = getid("push_url").value;
+		info.width = getid("width").value;
+		info.height = getid("height").value;
+		info.frame_rate = getid("frame_rate").value;
+		info.bitrate = parseInt(getid("bitrate").value) * 125;
+		
+		var index = info.push_url.lastIndexOf("/");
+		if (index == -1) {
+			alert("url非法，没有找到/分割符");
+			return;
+		}
+		
+		info.weburl = info.push_url.substr(0, index);
+		info.appname = info.push_url.substring(index+1);
+		console.log(info);
+		
+		var webpusher = getid("rtmp_client");
+		
+        webpusher.setCamMicInfo(info.width, info.height, info.frame_rate, info.bitrate);
+		webpusher.publish(info.weburl, info.appname);
+	}
+	
+	 function fn_push_stop() {
+		var webpusher = getid("rtmp_client");
+		webpusher.disconnect();
+	 }
+	
+</script>
+<body>
+	<div id="top">
+		<div>
+			<span>
+				<label>推流地址：</label><input class="long" 
+				value="rtmp://183.57.53.154:1935/live/5000_frank?bizid=5000" id="push_url"></input>					
+				<input type="button" value="推流" onclick="fn_push_start()"></input> 
+				<input type="button" value="断开" onclick="fn_push_stop()"></input>
+			</span>
+		</div>
+		<div style="vertical-align:top">
+			<div style="width:28%;float:left">
+				<span><label>宽度：</label><input value="640" id="width"></input></span>
+				<span><label>高度：</label><input value="480" id="height"></input></span>
+				<span><label>帧率(0-30):</label><input value="15" id="frame_rate"></input></span>
+				<span><label>比特率(kbps)：</label><input value="800" id="bitrate"></input></span>
+			</div>
+            
+			<div style="float:left;margin-top:8px">
+				<object>
+                       
+                    <embed id="rtmp_client" src="RtmpStreamer2.swf" bgcolor="#999999" quality="high" width="640" height="480" 
+                          allowScriptAccess="always" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"></embed>
+				</object>
+			</div>
+            <!--
+            
+           <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="" id="rtmp-client" width="640" height="480">
+            <param name="movie"  value="http://imgcache.qq.com/open/qcloud/video/act/live_web_push/RtmpStreamer.swf" />
+            <param name="quality" value="autohigh" />
+            <param name="swliveconnect" value="true" />
+            <param name="allowScriptAccess" value="always" />
+            <param name="bgcolor" value="#0" />
+            <param name="allowFullScreen" value="true" />
+            <param name="wmode" value="opaque" />
+            <param name="FlashVars" value="log=1" />
+
+            <embed src="http://imgcache.qq.com/open/qcloud/video/act/live_web_push/RtmpStreamer.swf" width="640" height="480" name="{{:playerName}}"
+                   quality="autohigh"
+                   bgcolor="#0"
+                   align="middle" allowFullScreen="true"
+                   allowScriptAccess="always"
+                   type="application/x-shockwave-flash"
+                   swliveconnect="true"
+                   wmode="opaque"
+                   FlashVars="log=1"
+                   pluginspage="http://www.macromedia.com/go/getflashplayer" >
+            </embed>
+            -->
+        </object>
+        
+		</div>
+	</div>
+</body>
